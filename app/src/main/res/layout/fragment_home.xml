@@ -96,28 +96,56 @@
             </RelativeLayout>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:fontFamily="@font/gluten_bold"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_gravity=""
-                android:visibility="gone"
-                android:textColor="#3814BA"
-                android:layout_marginBottom="10dp"
-                android:text="Categories you may like"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="16dp"-->
+<!--                android:fontFamily="@font/gluten_bold"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_gravity=""-->
+<!--                android:visibility="gone"-->
+<!--                android:textColor="#3814BA"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:text="Categories you may like"/>-->
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity=""
+                    android:fontFamily="@font/grandstander_semi_bold"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#3814BA"
+                    android:text="Điểm đến yêu thích trong nước"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity=""
+                    android:fontFamily="@font/grandstander_semi_bold"
+                    android:textColor="#3814BA"
+                    android:layout_marginBottom="10dp"
+                    android:text="Lên rừng xuống biển. Trọn vẹn Việt Nam"/>
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:padding="10dp"
                 android:layout_height="wrap_content">
+
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
                     android:id="@+id/categoriesView"
-                    android:overScrollMode="never"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
             </RelativeLayout>
 
 
@@ -142,7 +170,7 @@
                     android:layout_gravity=""
                     android:layout_marginStart="10dp"
                     android:textColor="#fff"
-                    android:text="Trending Gifts in India"/>
+                    android:text="Top khách sạn quốc tế"/>
             </LinearLayout>
 
 
@@ -185,7 +213,7 @@
                             android:layout_gravity=""
                             android:layout_marginTop="10dp"
                             android:textColor="#ffffff"
-                            android:text="Products across india"/>
+                            android:text="Khách sạn hàng đầu Việt Nam"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -195,7 +223,7 @@
                             android:layout_gravity=""
                             android:textColor="#ffffff"
                             android:layout_marginBottom="10dp"
-                            android:text="Deals of the day"/>
+                            android:text="Ưu đãi trong hôm nay"/>
                     </LinearLayout>
                     <Button
                         android:id="@+id/viewAllBtn"
@@ -207,19 +235,19 @@
                         android:textSize="10dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:text="View all"/>
+                        android:text="Tất cả"/>
                 </LinearLayout>
 
 
                 <androidx.recyclerview.widget.RecyclerView
 
-                    android:layout_width="match_parent"
                     android:id="@+id/productsAcrossIndia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginTop="10dp"
-                    android:overScrollMode="never"
-                    android:layout_height="wrap_content"/>
+                    android:layout_marginEnd="5dp"
+                    android:overScrollMode="never" />
 
             </LinearLayout>
 
@@ -233,7 +261,7 @@
                 <ImageView
                     android:id="@+id/midBanner"
                     android:layout_width="match_parent"
-                    android:src="@drawable/item_img_bg"
+                    android:src="@drawable/poster_hanoi"
                     android:scaleType="centerCrop"
                     android:layout_height="200dp"/>
             </androidx.cardview.widget.CardView>
@@ -245,8 +273,8 @@
                 android:orientation="vertical"
                 android:layout_marginTop="5dp"
                 android:paddingBottom="10dp"
-                android:background="@drawable/item_img_bg"
-            android:layout_height="wrap_content">
+                android:background="@drawable/vung_tau_bg"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -266,7 +294,7 @@
                             android:fontFamily="@font/grandstander_semi_bold"
                             android:layout_marginTop="10dp"
                             android:textColor="#ffffff"
-                            android:text="Support the locals"/>
+                            android:text="Top Khách Sạn Tốt Nhất Vũng Tàu"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -277,7 +305,7 @@
                             android:fontFamily="@font/grandstander_semi_bold"
                             android:textColor="#ffffff"
                             android:layout_marginBottom="10dp"
-                            android:text="Make in India"/>
+                            android:text="Thư giãn - Nạp năng lượng - Khám phá mới"/>
                     </LinearLayout>
                     <Button
                         android:id="@+id/viewlocalsBtn"
@@ -289,7 +317,7 @@
                         android:textSize="10dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:text="View all"/>
+                        android:text="Tất cả"/>
                 </LinearLayout>
 
 
