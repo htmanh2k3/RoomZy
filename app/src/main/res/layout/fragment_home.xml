@@ -365,13 +365,13 @@
                     android:layout_marginStart="10dp"
                     android:textColor="#fff"
                     android:textSize="16dp"
-                    android:text="Recently Viewed Products"/>
+                    android:text="Danh sách đã xem"/>
                 <Button
                     android:id="@+id/clearHistory"
                     android:layout_width="0dp"
                     android:layout_weight="0.4"
                     android:padding="10dp"
-                    android:text="Clear"
+                    android:text="Xoá"
                     android:textSize="10dp"
                     android:layout_height="40dp"
                     android:background="@drawable/round_white"

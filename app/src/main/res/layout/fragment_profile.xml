@@ -24,13 +24,17 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImage"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:id="@+id/profileImage"
                     android:layout_centerHorizontal="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/default_avatar"/>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/default_avatar" />
 
 
             </RelativeLayout>
@@ -100,20 +104,20 @@
                 android:textAlignment="center"
                 android:textSize="13dp"
                 android:fontFamily="@font/gluten_semi_bold"
-                android:text="Start selling your products with us by \nclicking the below button"/>
+                android:text="Bắt đầu bán sản phẩm của bạn với chúng tôi\n bằng cách nhấp vào nút bên dưới"/>
 
             <Button
                 android:id="@+id/startSelling"
                 android:layout_width="match_parent"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
-                android:text="Start Selling with us"
                 android:layout_below="@+id/hidetxt"
-                android:visibility="visible"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/button_bg2"
-                android:textColor="#fff"/>
+                android:text="Bắt đầu bán hàng"
+                android:textColor="#fff"
+                android:visibility="visible" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -156,7 +160,7 @@
                     android:layout_marginStart="30dp"
                     android:fontFamily="@font/gluten_semi_bold"
                     android:layout_toEndOf="@+id/guser_single_image"
-                    android:text="Account Settings"
+                    android:text="Tài Khoản"
 
                     android:layout_centerVertical="true"
                     android:textColor="#031161"
@@ -247,7 +251,7 @@
                     android:layout_marginStart="30dp"
                     android:fontFamily="@font/gluten_semi_bold"
                     android:layout_toEndOf="@+id/guser_single_image3"
-                    android:text="App Settings"
+                    android:text="Cài Đặt"
 
                     android:layout_centerVertical="true"
                     android:textColor="#031161"
@@ -291,7 +295,7 @@
                     android:layout_marginStart="30dp"
                     android:fontFamily="@font/gluten_semi_bold"
                     android:layout_toEndOf="@+id/guser_single_image2"
-                    android:text="Logout"
+                    android:text="Đăng xuất"
 
                     android:layout_centerVertical="true"
                     android:textColor="#031161"
