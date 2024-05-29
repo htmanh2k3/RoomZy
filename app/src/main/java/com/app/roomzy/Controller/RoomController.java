@@ -53,14 +53,16 @@ public class RoomController {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Room> roomList = new ArrayList<>();
-                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
-                    Room room = roomSnapshot.getValue(Room.class);
-                    if (room.getName().toLowerCase().contains(keyword.toLowerCase())) {
-                        roomList.add(room);
+                ArrayList<Room> rooms = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Room room = snapshot.getValue(Room.class);
+                    if (room != null && room.getName() != null && keyword != null) {
+                        if (room.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                            rooms.add(room);
+                        }
                     }
                 }
-                listener.onRoomDataLoaded(roomList);
+                listener.onRoomDataLoaded(rooms);
             }
 
             @Override
@@ -69,6 +71,7 @@ public class RoomController {
             }
         });
     }
+
 
     public interface OnRoomDataLoadedListener {
         void onRoomDataLoaded(ArrayList<Room> roomList);

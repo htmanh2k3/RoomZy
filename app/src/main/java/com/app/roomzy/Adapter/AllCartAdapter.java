@@ -16,6 +16,7 @@ import com.app.roomzy.Models.Room;
 import com.app.roomzy.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 
 public class AllCartAdapter extends RecyclerView.Adapter<AllCartAdapter.Viewholder> {
@@ -72,6 +73,7 @@ public class AllCartAdapter extends RecyclerView.Adapter<AllCartAdapter.Viewhold
 
     public static class Viewholder extends RecyclerView.ViewHolder{
 
+        public BreakIterator productDescription;
         ImageView productImage;
         TextView productName,productPrice;
         public Viewholder(@NonNull  View itemView) {
