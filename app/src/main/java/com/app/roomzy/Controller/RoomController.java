@@ -17,26 +17,32 @@ public class RoomController {
     private DatabaseReference databaseReference;
 
     public RoomController() {
-        databaseReference = FirebaseDatabase.getInstance().getReference("rooms");
+        databaseReference = FirebaseDatabase.getInstance("https://roomzy-cbeb4-default-rtdb.firebaseio.com").getReference("Room");
     }
 
-    // Hàm lấy danh sách phòng từ Firebase
     public void getAllRooms(final OnRoomDataLoadedListener listener) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Room> roomList = new ArrayList<>();
                 for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
-                    Room room = roomSnapshot.getValue(Room.class);
+                    String id = roomSnapshot.child("Id").getValue(String.class);
+                    String name = roomSnapshot.child("Name").getValue(String.class);
+                    String address = roomSnapshot.child("Address").getValue(String.class);
+                    String imageUrl = roomSnapshot.child("Image").getValue(String.class);
+                    String type = roomSnapshot.child("Type").getValue(String.class);
+                    int price = roomSnapshot.child("Price").getValue(Integer.class);
+                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+//    public Room(String address, String id, String imageURL, String name, int price, int rate, String type) {
+
+                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
                     roomList.add(room);
                 }
-                // Gọi callback khi dữ liệu được load thành công
                 listener.onRoomDataLoaded(roomList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý lỗi nếu có
                 Log.e("RoomController", "Failed to read value.", databaseError.toException());
             }
         });
@@ -54,19 +60,16 @@ public class RoomController {
                         roomList.add(room);
                     }
                 }
-                // Gọi callback khi dữ liệu được tìm kiếm thành công
                 listener.onRoomDataLoaded(roomList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý lỗi nếu có
                 Log.e("RoomController", "Failed to read value.", databaseError.toException());
             }
         });
     }
 
-    // Interface để định nghĩa callback cho việc load dữ liệu phòng
     public interface OnRoomDataLoadedListener {
         void onRoomDataLoaded(ArrayList<Room> roomList);
     }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.app.roomzy.Adapter.AllCartAdapter;
 import com.app.roomzy.Adapter.CategoriesAdapter;
+import com.app.roomzy.Adapter.TrendingRecyclerAdapter;
 import com.app.roomzy.Controller.HistoryUpdated;
+import com.app.roomzy.Controller.RoomController;
 import com.app.roomzy.Models.CategoriesModel;
+import com.app.roomzy.Models.Room;
 import com.app.roomzy.R;
 import com.app.roomzy.ViewAllActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,18 +54,29 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
 
 
 
-
+    ArrayList<Room> trendingList = new ArrayList<>();
     ArrayList<CategoriesModel>categoriesList = new ArrayList<>();
+    ArrayList<Room>topVNList = new ArrayList<>();
+    ArrayList<Room>toplocationList = new ArrayList<>();
+
 
 
     ArrayList<String>ranks = new ArrayList<>();
 
     Button clearHistory;
+    private RoomController roomController;
+    public static HistoryUpdated historyUpdated;
+
+
+    TrendingRecyclerAdapter trendingRecyclerAdapter;
+    AllCartAdapter topVNRecyclerAdapter;
+    AllCartAdapter topLocationAdapter;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -77,6 +93,7 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
         viewAllBtn = (Button) mMainView.findViewById(R.id.viewAllBtn);
         viewlocalAllBtn = (Button) mMainView.findViewById(R.id.viewlocalsBtn);
         nestedScrollView = (NestedScrollView) mMainView.findViewById(R.id.nestedScroll);
+        historyUpdated = (HistoryUpdated) this;
 
 
         midbannerImage.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +112,7 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:macrocodes7400@gmail.com")); // only email apps should handle this
+                intent.setData(Uri.parse("mailto:phamnguyenkali@gmail.com")); // only email apps should handle this
                 intent.putExtra(Intent.EXTRA_SUBJECT, "here is my valueable suggestion for you.");
                 if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
                     startActivity(intent);
@@ -109,24 +126,23 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
         // Inflate the layout for this fragment
         mMainView = inflater.inflate(R.layout.fragment_home, container, false);
         initialize();
+        roomController = new RoomController();
+
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 addCategories();
-                getAllProducts();
+                getLoCationList();
+                getTopVnList();
+                getTrending();
 
-//                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
-//                mAdapter = new TrendingRecyclerAdapter(trendingList,getContext(),requireActivity().getSupportFragmentManager(),historyUpdated);
-//                mTrendingView.setLayoutManager(linearLayoutManager);
-//                mTrendingView.setAdapter(mAdapter);
-
-                //products accross india adapter
-//                mProductsAcrossView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//                mAdapter2 = new AllProductsAdapter(allProducts,getContext(),requireActivity().getSupportFragmentManager(),historyUpdated);
-//                mProductsAcrossView.setAdapter(mAdapter2);
-
+                Log.e("PhamNguyen", trendingList.toString());
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false);
+                trendingRecyclerAdapter = new TrendingRecyclerAdapter(trendingList,getContext(),requireActivity().getSupportFragmentManager(),historyUpdated);
+                mTrendingView.setLayoutManager(linearLayoutManager);
+                mTrendingView.setAdapter(trendingRecyclerAdapter);
 
 
                 //categories adapter
@@ -135,32 +151,21 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
                 mAdapter3 = new CategoriesAdapter(categoriesList,getContext());
                 mCategoriesView.setAdapter(mAdapter3);
 
+                mProductsAcrossView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                topVNRecyclerAdapter = new AllCartAdapter(topVNList,getContext(),requireActivity().getSupportFragmentManager(),historyUpdated);
+                mProductsAcrossView.setAdapter(topVNRecyclerAdapter);
 
-                //support locals adapter
-//                mAdapter4 = new AllProductsAdapter(locals,getContext(),requireActivity().getSupportFragmentManager(),historyUpdated);
-//                mLocalViews.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//                mLocalViews.setAdapter(mAdapter4);
-//
-//                //Recent Product History
-//                productHistory = new ProductHistory(getContext());
-//                recentHistory = productHistory.getAllData();
-//                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-//
-//                mRecentAdapter = new RecentHistoryAdapter(recentHistory,databaseHelper,getContext(),getFragmentManager());
-//                LinearLayoutManager linearLayoutManager4 = new LinearLayoutManager(getContext());
-//                mRecentView.setLayoutManager(linearLayoutManager4);
-//                mRecentView.setAdapter(mRecentAdapter);
+
+                topLocationAdapter = new AllCartAdapter(toplocationList,getContext(),requireActivity().getSupportFragmentManager(),historyUpdated);
+                mLocalViews.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                mLocalViews.setAdapter(topLocationAdapter);
 
             }
         },1000);
         //trending
 
 
-//        if (recentHistory.size() == 0){
-//            noHistoryImage.setVisibility(View.VISIBLE);
-//        }else{
-//            noHistoryImage.setVisibility(View.GONE);
-//        }
+
 
         clearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,78 +195,40 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
 
         return mMainView;
     }
-//    private void getBanner(){
-////        Picasso.get().load(R.drawable.poster1)
-////                .placeholder(R.drawable.img3)
-////                .into(bannerImage);
-////        CustomDatabase customDatabase = new CustomDatabase() ;
-////        CollectionReference products  = customDatabase.getSettings().collection("banner");
-////        products.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-////            @Override
-////            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-////                for (QueryDocumentSnapshot datasnapshot : queryDocumentSnapshots){
-////                    BannerModel bannerModel = datasnapshot.toObject(BannerModel.class);
-////                    banners.add(bannerModel);
-////
-////
-////
-////                }
-////            }
-////        });
-//
-//        if (banners.size() == 1){
-//
-//
-////            String nav = banners.get(0).getNavigate();
-////            bannerImage.setOnClickListener(new View.OnClickListener() {
-////                @Override
-////                public void onClick(View v) {
-////                    if (nav.equalsIgnoreCase("inApp")){
-////                        //Query for searching product with id
-////                    }else{
-////                        //Search in web
-////                    }
-////                }
-////            });
-//        }
-//    }
-    private void getLocalProducts(){
-//        CustomDatabase customDatabase = new CustomDatabase() ;
-//        CollectionReference products  = customDatabase.getSettings().collection("locals");
-//        products.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot snapshots) {
-//                for (QueryDocumentSnapshot datasnapshot : snapshots){
-//                    TrendingProducts trendingProducts1 = datasnapshot.toObject(TrendingProducts.class);
-//                    locals.add(trendingProducts1);
-//                    mAdapter4.notifyDataSetChanged();
-//
-//                }
-//
-//            }
-//        });
+
+    private void getTrending(){
+        roomController.getAllRooms(new RoomController.OnRoomDataLoadedListener() {
+            @Override
+            public void onRoomDataLoaded(ArrayList<Room> roomList) {
+                trendingList.clear();
+                trendingList.addAll(roomList);
+                Log.e("PhamNguyen", trendingList.toString());
+                trendingRecyclerAdapter.notifyDataSetChanged();
+            }
+        });
     }
-    private void getAllProducts(){
-//        allProducts.clear();
-//        CustomDatabase customDatabase = new CustomDatabase() ;
-//        CollectionReference products  = customDatabase.getSettings().collection("Trending");
-//        products.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot snapshots) {
-//                for (QueryDocumentSnapshot datasnapshot : snapshots){
-//                    TrendingProducts trendingProducts1 = datasnapshot.toObject(TrendingProducts.class);
-//                    allProducts.add(trendingProducts1);
-//                    mAdapter2.notifyDataSetChanged();
-//
-//                }
-//
-//            }
-//        }).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                getLocalProducts();
-//            }
-//        });
+    private void getLoCationList(){
+        roomController.getAllRooms(new RoomController.OnRoomDataLoadedListener() {
+            @Override
+            public void onRoomDataLoaded(ArrayList<Room> roomList) {
+                toplocationList.clear();
+                toplocationList.addAll(roomList);
+                Log.e("PhamNguyen", toplocationList.toString());
+                topLocationAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void getTopVnList(){
+        roomController.getAllRooms(new RoomController.OnRoomDataLoadedListener() {
+            @Override
+            public void onRoomDataLoaded(ArrayList<Room> roomList) {
+                topVNList.clear();
+                topVNList.addAll(roomList);
+                Log.e("PhamNguyen", topVNList.toString());
+                topVNRecyclerAdapter.notifyDataSetChanged();
+            }
+        });
     }
     private void addCategories(){
         categoriesList.clear();
