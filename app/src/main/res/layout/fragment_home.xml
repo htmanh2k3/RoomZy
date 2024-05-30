@@ -209,7 +209,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="17dp"
                             android:id="@+id/globalCity"
-
+                            android:textStyle="bold"
                             android:layout_marginStart="15dp"
                             android:layout_gravity=""
                             android:layout_marginTop="10dp"
@@ -223,6 +223,7 @@
                             android:textSize="12dp"
                             android:layout_marginStart="15dp"
                             android:layout_gravity=""
+                            android:textStyle="bold"
                             android:textColor="#ffffff"
                             android:layout_marginBottom="10dp"
                             android:text="Ưu đãi trong hôm nay"/>
@@ -235,6 +236,7 @@
                         android:background="@drawable/round_white"
                         android:backgroundTint="#fff"
                         android:textSize="10dp"
+                        android:textStyle="bold"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:fontFamily="@font/helvetica_neue_medium"
@@ -288,16 +290,18 @@
                         android:layout_weight="3"
                         android:orientation="vertical"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:layout_marginStart="15dp"
                             android:layout_gravity=""
-                            android:fontFamily="@font/helvetica_neue"
+                            android:layout_marginStart="15dp"
                             android:layout_marginTop="10dp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/helvetica_neue"
+                            android:text="Top Khách Sạn Tốt Nhất Vũng Tàu"
                             android:textColor="#ffffff"
-                            android:text="Top Khách Sạn Tốt Nhất Vũng Tàu"/>
+                            android:textSize="16dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -305,6 +309,7 @@
                             android:textSize="12dp"
                             android:layout_marginStart="15dp"
                             android:layout_gravity=""
+                            android:textStyle="bold"
                             android:fontFamily="@font/helvetica_neue"
                             android:textColor="#ffffff"
                             android:layout_marginBottom="10dp"
