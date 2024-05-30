@@ -1,6 +1,7 @@
 package com.app.roomzy.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,12 +17,16 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.roomzy.Adapter.AllCartAdapter;
 import com.app.roomzy.Adapter.CartAdapter;
 import com.app.roomzy.Controller.FirebaseController;
 import com.app.roomzy.Controller.RoomController;
+import com.app.roomzy.FilterTheDataActivity;
+import com.app.roomzy.MainActivity;
 import com.app.roomzy.Models.Room;
 import com.app.roomzy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +40,7 @@ public class SearchFragment extends Fragment {
 
     View mMainView;
     EditText searchBox;
+    ImageView image_filter;
     ImageButton searchBtn;
     RecyclerView searchView;
     CartAdapter cartAdapter;
@@ -55,7 +61,7 @@ public class SearchFragment extends Fragment {
         mMainView = inflater.inflate(R.layout.fragment_search, container, false);
         searchBox = (EditText) mMainView.findViewById(R.id.search);
         searchBtn = (ImageButton) mMainView.findViewById(R.id.searchBtn);
-
+        image_filter = (ImageView) mMainView.findViewById(R.id.image_filter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         searchView = (RecyclerView) mMainView.findViewById(R.id.searchView);
         searchView.setLayoutManager(linearLayoutManager);
@@ -77,6 +83,14 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 search(searchBox.getText().toString());
+            }
+        });
+        image_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Mở Thành Công!!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), FilterTheDataActivity.class);
+                startActivity(intent);
             }
         });
 
