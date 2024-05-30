@@ -53,6 +53,7 @@ public class RoomController {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Room> roomList = new ArrayList<>();
+
                 for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
                     String id = roomSnapshot.child("Id").getValue(String.class);
                     String name = roomSnapshot.child("Name").getValue(String.class);

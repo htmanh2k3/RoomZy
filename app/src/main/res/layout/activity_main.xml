@@ -12,7 +12,7 @@
         <RelativeLayout
             android:id="@+id/splashLayout"
             android:layout_width="match_parent"
-            android:background="@color/specialColor"
+            android:background="@color/GlacierBlueColor"
             android:elevation="20dp"
             android:layout_height="match_parent">
 
@@ -30,7 +30,7 @@
             android:id="@+id/txt3"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#FF6200EE">
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/title"
@@ -38,9 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="15dp"
-                android:fontFamily="@font/gluten_semi_bold"
+                android:fontFamily="@font/helvetica_bold"
                 android:text="Home"
-                android:textColor="#fff"
+                android:textColor="@color/GlacierBlueColor"
                 android:textSize="15dp" />
 
             <RelativeLayout
