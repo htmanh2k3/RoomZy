@@ -61,7 +61,7 @@ public class SearchFragment extends Fragment {
         searchView.setLayoutManager(linearLayoutManager);
         cartAdapter = new CartAdapter(getActivity(),arrayList);
         searchView.setAdapter(cartAdapter);
-
+        search("");
         searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

@@ -33,7 +33,6 @@ public class RoomController {
                     String type = roomSnapshot.child("Type").getValue(String.class);
                     int price = roomSnapshot.child("Price").getValue(Integer.class);
                     int rate = roomSnapshot.child("Rate").getValue(Integer.class);
-//    public Room(String address, String id, String imageURL, String name, int price, int rate, String type) {
 
                     Room room = new Room(address,id, imageUrl,name, price, rate, type);
                     roomList.add(room);
@@ -53,16 +52,21 @@ public class RoomController {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Room> rooms = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Room room = snapshot.getValue(Room.class);
-                    if (room != null && room.getName() != null && keyword != null) {
-                        if (room.getName().toLowerCase().contains(keyword.toLowerCase())) {
-                            rooms.add(room);
-                        }
-                    }
+                ArrayList<Room> roomList = new ArrayList<>();
+                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+                    String id = roomSnapshot.child("Id").getValue(String.class);
+                    String name = roomSnapshot.child("Name").getValue(String.class);
+                    String address = roomSnapshot.child("Address").getValue(String.class);
+                    String imageUrl = roomSnapshot.child("Image").getValue(String.class);
+                    String type = roomSnapshot.child("Type").getValue(String.class);
+                    int price = roomSnapshot.child("Price").getValue(Integer.class);
+                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+
+                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
+                    if(room.getName().toLowerCase().contains(keyword.toLowerCase()))
+                        roomList.add(room);
                 }
-                listener.onRoomDataLoaded(rooms);
+                listener.onRoomDataLoaded(roomList);
             }
 
             @Override
