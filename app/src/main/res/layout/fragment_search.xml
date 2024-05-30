@@ -14,6 +14,7 @@
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_weight="3"
+            android:fontFamily="@font/helvetica_bold"
             android:layout_height="wrap_content"
             android:background="@drawable/editbox_bg"
             android:padding="15dp"
@@ -67,7 +68,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:fontFamily="@font/gluten_bold"
+            android:fontFamily="@font/helvetica_bold"
             android:text="Tp. Hồ Chí Minh"
             android:textColor="#3814BA"
             android:textSize="12dp" />

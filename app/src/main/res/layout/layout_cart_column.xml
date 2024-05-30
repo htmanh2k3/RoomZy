@@ -31,7 +31,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/gluten_bold"
+                android:fontFamily="@font/helvetica_bold"
                 android:text="Product Name"/>
             <TextView
                 android:id="@+id/productDesc2"
@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#BCBBBB"
                 android:maxLines="2"
+                android:fontFamily="@font/helvetica_bold"
                 android:textSize="12dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
@@ -55,7 +56,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/gluten_bold"
+                android:fontFamily="@font/helvetica_bold"
                 android:text="200.000 vnđ"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

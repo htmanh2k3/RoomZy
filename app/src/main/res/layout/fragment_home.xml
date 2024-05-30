@@ -120,7 +120,7 @@
                     android:textSize="16dp"
                     android:layout_marginStart="15dp"
                     android:layout_gravity=""
-                    android:fontFamily="@font/helvetica_neue"
+                    android:fontFamily="@font/helvetica_bold"
                     android:layout_marginTop="10dp"
                     android:textColor="@color/GlacierBlueColor"
                     android:text="Điểm đến yêu thích trong nước"/>
@@ -128,7 +128,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:textSize="17dp"
                     android:layout_marginStart="15dp"
                     android:layout_gravity=""
                     android:fontFamily="@font/helvetica_bold"
@@ -166,7 +166,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:fontFamily="@font/helvetica_bold"
                     android:layout_gravity=""
                     android:layout_marginStart="10dp"
@@ -207,13 +207,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
+                            android:textSize="17dp"
                             android:id="@+id/globalCity"
 
                             android:layout_marginStart="15dp"
                             android:layout_gravity=""
                             android:layout_marginTop="10dp"
                             android:textColor="#ffffff"
+                            android:fontFamily="@font/helvetica_neue_medium"
                             android:text="Khách sạn hàng đầu Việt Nam"/>
 
                         <TextView
@@ -236,6 +237,7 @@
                         android:textSize="10dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/helvetica_neue_medium"
                         android:text="Tất cả"/>
                 </LinearLayout>
 
@@ -364,6 +366,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
+                    android:fontFamily="@font/helvetica_neue_medium"
                     android:textColor="#fff"
                     android:textSize="16dp"
                     android:text="Danh sách đã xem"/>
