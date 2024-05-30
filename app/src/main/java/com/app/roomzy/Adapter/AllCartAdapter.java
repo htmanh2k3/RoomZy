@@ -60,7 +60,7 @@ public class AllCartAdapter extends RecyclerView.Adapter<AllCartAdapter.Viewhold
 
     @Override
     public int getItemCount() {
-        int limit = 4;
+        int limit = 9;
         if(trendingList.size() > limit){
             return limit;
         }
