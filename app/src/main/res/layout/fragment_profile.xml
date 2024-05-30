@@ -61,7 +61,7 @@
                 android:visibility="gone"
                 android:textColor="#031161"
                 android:textSize="17dp"
-                android:fontFamily="@font/gluten_bold"
+                android:fontFamily="@font/helvetica_bold"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"/>
 
@@ -75,7 +75,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/gluten_semi_bold"
+                android:fontFamily="@font/helvetica_bold"
                 android:layout_marginBottom="20dp"
                 android:textAlignment="center"/>
 
@@ -158,7 +158,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
-                    android:fontFamily="@font/gluten_semi_bold"
+                    android:fontFamily="@font/helvetica_bold"
                     android:layout_toEndOf="@+id/guser_single_image"
                     android:text="Tài Khoản"
 
@@ -249,7 +249,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
-                    android:fontFamily="@font/gluten_semi_bold"
+                    android:fontFamily="@font/helvetica_bold"
                     android:layout_toEndOf="@+id/guser_single_image3"
                     android:text="Cài Đặt"
 
@@ -293,7 +293,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
-                    android:fontFamily="@font/gluten_semi_bold"
+                    android:fontFamily="@font/helvetica_bold"
                     android:layout_toEndOf="@+id/guser_single_image2"
                     android:text="Đăng xuất"
 

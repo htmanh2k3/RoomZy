@@ -12,7 +12,7 @@
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:fontFamily="@font/gluten_bold"
+        android:fontFamily="@font/helvetica_bold"
         android:text="Tạo Tài Khoản"
         android:textColor="@color/purple_500"
         android:textSize="20dp" />
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:fontFamily="@font/gluten_bold"
+                android:fontFamily="@font/helvetica_bold"
                 android:text="Bạn đã có tài khoản ?"
                 android:textAlignment="center"
                 android:textColor="#ffffff" />
@@ -109,7 +109,7 @@
                 android:layout_below="@+id/txt1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/grandstander_semi_bold"
+                android:fontFamily="@font/helvetica_bold"
                 android:text="Đăng Nhập"
                 android:textColor="#ffffff" />
         </RelativeLayout>

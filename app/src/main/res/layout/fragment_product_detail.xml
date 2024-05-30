@@ -50,7 +50,7 @@
                         android:textSize="18dp"
                         android:maxLines="1"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/gluten_bold"
+                        android:fontFamily="@font/helvetica_bold"
                         android:textColor="#7900D9"
                         android:text="Cozrum Homes Premier Residences
 "/>
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
-                    android:fontFamily="@font/gluten_bold"
+                    android:fontFamily="@font/helvetica_bold"
                     android:layout_marginTop="10dp"
                     android:textColor="#000000"
                     android:text="200.000 đ"/>
@@ -87,7 +87,7 @@
                         android:text="Đặt ngay"
                         android:layout_marginTop="20dp"
                         android:textColor="#ffffff"
-                        android:fontFamily="@font/gluten_semi_bold"
+                        android:fontFamily="@font/helvetica_bold"
                         android:background="@drawable/button_bg"/>
                     <Button
                         android:id="@+id/buyCall"
