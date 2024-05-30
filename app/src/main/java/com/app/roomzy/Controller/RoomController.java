@@ -63,7 +63,7 @@ public class RoomController {
                     int rate = roomSnapshot.child("Rate").getValue(Integer.class);
 
                     Room room = new Room(address,id, imageUrl,name, price, rate, type);
-                    if(room.getName().toLowerCase().contains(keyword.toLowerCase()))
+                    if(room.getName().toLowerCase().contains(keyword.toLowerCase()) ||room.getAddress().toLowerCase().contains(keyword.toLowerCase()) )
                         roomList.add(room);
                 }
                 listener.onRoomDataLoaded(roomList);
