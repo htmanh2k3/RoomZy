@@ -153,7 +153,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:background="#3814BA"
+                android:background="@color/primaryColor"
                 android:padding="15dp"
                 android:layout_marginBottom="10dp"
                 android:layout_height="wrap_content">

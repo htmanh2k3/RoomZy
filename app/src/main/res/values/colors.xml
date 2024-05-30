@@ -8,5 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="specialColor">#FF6200EE</color>
+    <color name="primaryColor">#9ae2de</color>
+    <color name="OvercastColor">#F1F1F2</color>
+    <color name="WarmGrayColor">#BCBABE</color>
+    <color name="IceColor">#A1D6E2</color>
+    <color name="GlacierBlueColor">#1995AD</color>
 
 </resources>
