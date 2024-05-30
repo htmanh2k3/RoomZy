@@ -51,7 +51,7 @@
                         android:maxLines="1"
                         android:layout_gravity="center"
                         android:fontFamily="@font/helvetica_bold"
-                        android:textColor="#7900D9"
+                        android:textColor="@color/GlacierBlueColor"
                         android:text="Cozrum Homes Premier Residences
 "/>
 

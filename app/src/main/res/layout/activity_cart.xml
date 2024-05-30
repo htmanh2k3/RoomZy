@@ -9,7 +9,7 @@
         tools:context=".CartActivity">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="#FF6200EE"
+            android:background="@color/GlacierBlueColor"
             android:id="@+id/txt3"
             android:layout_height="wrap_content">
 
