@@ -12,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.roomzy.Controller.CurrencyFormatter;
 import com.app.roomzy.Controller.HistoryUpdated;
+import com.app.roomzy.Fragments.ProductDetailFragment;
 import com.app.roomzy.Models.Room;
 import com.app.roomzy.R;
 import com.squareup.picasso.Picasso;
@@ -50,7 +52,7 @@ public class TrendingRecyclerAdapter extends RecyclerView.Adapter<TrendingRecycl
 
         Room trendingProducts = trendingList.get(position);
         holder.productName.setText(trendingProducts.getName());
-        holder.productPrice.setText(String.valueOf(trendingProducts.getPrice())); // Đổi từ int sang String ở đây
+        holder.productPrice.setText(CurrencyFormatter.formatVietnameseCurrency(trendingProducts.getPrice())); // Đổi từ int sang String ở đây
         Picasso.get().load(trendingProducts.getImageURL())
                 .into(holder.productImage);
 
@@ -65,6 +67,8 @@ public class TrendingRecyclerAdapter extends RecyclerView.Adapter<TrendingRecycl
             @Override
             public void onClick(View v) {
                 // Thực hiện hành động khi nhấp vào một sản phẩm
+                ProductDetailFragment bottomSheet = new ProductDetailFragment(mContext, trendingProducts,historyUpdated);
+                bottomSheet.show(supportFragmentManager, "ModalBottomSheet");
             }
         });
 

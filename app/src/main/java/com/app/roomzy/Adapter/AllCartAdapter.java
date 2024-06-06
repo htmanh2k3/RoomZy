@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.roomzy.Controller.CurrencyFormatter;
 import com.app.roomzy.Controller.HistoryUpdated;
+import com.app.roomzy.Fragments.ProductDetailFragment;
 import com.app.roomzy.Models.Room;
 import com.app.roomzy.R;
 import com.squareup.picasso.Picasso;
@@ -45,7 +47,7 @@ public class AllCartAdapter extends RecyclerView.Adapter<AllCartAdapter.Viewhold
 
         Room trendingProducts = trendingList.get(position);
         holder.productName.setText(trendingProducts.getName());
-        holder.productPrice.setText(String.valueOf(trendingProducts.getPrice()));
+        holder.productPrice.setText(CurrencyFormatter.formatVietnameseCurrency(trendingProducts.getPrice()));
         Picasso.get().load(trendingProducts.getImageURL())
                 .into(holder.productImage);
 
@@ -53,7 +55,8 @@ public class AllCartAdapter extends RecyclerView.Adapter<AllCartAdapter.Viewhold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ProductDetailFragment bottomSheet = new ProductDetailFragment(mContext, trendingProducts,historyUpdated);
+                bottomSheet.show(supportFragmentManager, "ModalBottomSheet");
             }
         });
     }

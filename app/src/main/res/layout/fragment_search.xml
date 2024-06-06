@@ -70,7 +70,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/helvetica_bold"
             android:text="Tp. Hồ Chí Minh"
-            android:textColor="#3814BA"
+            android:textColor="@color/GlacierBlueColor"
             android:textSize="12dp" />
 
         <ImageView

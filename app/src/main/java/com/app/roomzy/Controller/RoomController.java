@@ -4,7 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.app.roomzy.Models.ConFigManager;
 import com.app.roomzy.Models.Room;
+import com.app.roomzy.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +19,7 @@ public class RoomController {
     private DatabaseReference databaseReference;
 
     public RoomController() {
-        databaseReference = FirebaseDatabase.getInstance("https://roomzy-cbeb4-default-rtdb.firebaseio.com").getReference("Room");
+        databaseReference = FirebaseDatabase.getInstance(ConFigManager.getFirebaseUrl()).getReference("Room");
     }
 
     public void getAllRooms(final OnRoomDataLoadedListener listener) {

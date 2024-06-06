@@ -8,15 +8,12 @@
     tools:context=".FilterTheDataActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:background="@color/IceColor"
-        android:layout_height="50dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="300dp"
@@ -27,46 +24,49 @@
             <TextView
                 android:id="@+id/tv_filter_tinhthanh"
                 android:layout_width="150dp"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/helvetica_neue"
-                android:text="TP Hồ Chí Minh" />
+                android:text="TP Hồ Chí Minh"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_filter_loai"
                 android:layout_width="130dp"
-                android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/helvetica_neue"
-                android:text="Loại Phòng" />
+                android:text="Loại Phòng"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <Button
             android:id="@+id/btnApDung"
             android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             android:background="@drawable/round_white"
             android:backgroundTint="#FAF8F7"
-            android:textSize="10dp"
-            android:textColor="#1B33BC"
-            android:textStyle="bold"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
             android:fontFamily="@font/helvetica_bold"
-            android:text="Áp dụng"/>
+            android:text="Áp dụng"
+            android:textColor="@color/GlacierBlueColor"
+            android:textSize="10dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_filterprovinder"
-        android:layout_width="149dp"
-        android:layout_height="692dp"
-
-
+        android:layout_width="150dp"
+        android:layout_height="680dp"
+        android:minWidth="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:layout_editor_absoluteX="2dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="258dp"
         android:layout_height="649dp"
         android:orientation="vertical"
@@ -78,13 +78,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:textColor="@color/black"
             android:fontFamily="@font/helvetica_neue"
-            android:text="Giá tăng dần" />
+            android:text="Giá tăng dần"
+            android:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_filter_loai"
             android:layout_width="match_parent"
             android:layout_height="662dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

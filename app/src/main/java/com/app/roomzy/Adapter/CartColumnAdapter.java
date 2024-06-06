@@ -8,8 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.roomzy.Controller.CurrencyFormatter;
+import com.app.roomzy.Fragments.HomeFragment;
+import com.app.roomzy.Fragments.ProductDetailFragment;
 import com.app.roomzy.Models.Room;
 import com.app.roomzy.R;
 import com.app.roomzy.ViewAllActivity;
@@ -37,7 +42,7 @@ public class CartColumnAdapter extends RecyclerView.Adapter<CartColumnAdapter.Vi
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         Room model = locals.get(position);
 
-        holder.productPrice.setText(model.getPrice());
+        holder.productPrice.setText(CurrencyFormatter.formatVietnameseCurrency(model.getPrice()));
         holder.productName.setText(model.getName());
         holder.productDesc.setText(model.getAddress());
         Picasso.get().load(model.getImageURL())
@@ -45,9 +50,11 @@ public class CartColumnAdapter extends RecyclerView.Adapter<CartColumnAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-//                ProductInfoBottom bottomSheet = new ProductInfoBottom(context, model, HomeFragment.historyUpdated);
+                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+//                ProductDetailFragment bottomSheet = new ProductDetailFragment(context, model, HomeFragment.historyUpdated);
 //                bottomSheet.show(manager, "ModalBottomSheet");
+                ProductDetailFragment bottomSheet = new ProductDetailFragment(context, model, HomeFragment.historyUpdated);
+                bottomSheet.show(manager, "ModalBottomSheet");
             }
         });
     }

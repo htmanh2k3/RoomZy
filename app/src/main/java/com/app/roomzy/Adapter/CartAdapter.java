@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.roomzy.BuildConfig;
+import com.app.roomzy.Controller.CurrencyFormatter;
+import com.app.roomzy.Fragments.ProductDetailFragment;
 import com.app.roomzy.Models.Room;
 import com.app.roomzy.R;
 import com.app.roomzy.ViewAllActivity;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> {
     ArrayList<Room> products = new ArrayList<>();
     Context context;
+    Context mContext;
+    FragmentManager fragmentManager;
 
     public CartAdapter(ViewAllActivity viewAllProductsActivity, ArrayList<Room> products) {
         context = viewAllProductsActivity;
@@ -52,14 +56,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> {
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         Room model = products.get(position);
         holder.productName.setText(model.getName());
-        holder.productPrice.setText(String.valueOf(model.getPrice()));
+        holder.productPrice.setText(CurrencyFormatter.formatVietnameseCurrency(model.getPrice()));
         holder.productDescription.setText(model.getAddress());
         Picasso.get().load(model.getImageURL())
                 .into(holder.productImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//                ProductDetailFragment bottomSheet = new ProductDetailFragment(mContext, model);
+//                bottomSheet.show(fragmentManager, "ModalBottomSheet");
+                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+                ProductDetailFragment bottomSheet = new ProductDetailFragment(context, model);
+                bottomSheet.show(manager, "ModalBottomSheet");
             }
         });
         holder.productShare.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +76,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        "Download the Crefti App from the google play store in order to view the product : https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
+                        "Download the RoomZy App from the google play store in order to view the product : https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
                 sendIntent.setType("text/plain");
                 context.startActivity(sendIntent);
             }
