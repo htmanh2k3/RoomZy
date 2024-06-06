@@ -24,10 +24,10 @@ import java.util.ArrayList;
 
 public class CartColumnAdapter extends RecyclerView.Adapter<CartColumnAdapter.Viewholder> {
     Context context;
-    ArrayList<Room> locals = new ArrayList<>();
+    ArrayList<Room> rooms = new ArrayList<>();
     public CartColumnAdapter(ViewAllActivity viewAllProductsActivity, ArrayList<Room> locals) {
         context = viewAllProductsActivity;
-        this.locals=locals;
+        this.rooms=locals;
     }
 
     @NonNull
@@ -40,7 +40,7 @@ public class CartColumnAdapter extends RecyclerView.Adapter<CartColumnAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-        Room model = locals.get(position);
+        Room model = rooms.get(position);
 
         holder.productPrice.setText(CurrencyFormatter.formatVietnameseCurrency(model.getPrice()));
         holder.productName.setText(model.getName());
@@ -61,7 +61,7 @@ public class CartColumnAdapter extends RecyclerView.Adapter<CartColumnAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return locals.size();
+        return rooms.size();
     }
 
     public static class Viewholder extends RecyclerView.ViewHolder{

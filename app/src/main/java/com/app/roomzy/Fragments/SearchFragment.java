@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.app.roomzy.Adapter.AllCartAdapter;
 import com.app.roomzy.Adapter.CartAdapter;
+import com.app.roomzy.Adapter.CartAllItemAdapter;
 import com.app.roomzy.Controller.FirebaseController;
 import com.app.roomzy.Controller.RoomController;
 import com.app.roomzy.FilterTheDataActivity;
@@ -43,7 +44,7 @@ public class SearchFragment extends Fragment {
     ImageView image_filter;
     ImageButton searchBtn;
     RecyclerView searchView;
-    CartAdapter cartAdapter;
+    CartAllItemAdapter cartAdapter;
     ArrayList<Room> arrayList = new ArrayList<>();
     FirebaseController firebaseController;
     RoomController roomController;
@@ -65,7 +66,7 @@ public class SearchFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         searchView = (RecyclerView) mMainView.findViewById(R.id.searchView);
         searchView.setLayoutManager(linearLayoutManager);
-        cartAdapter = new CartAdapter(getActivity(),arrayList);
+        cartAdapter = new CartAllItemAdapter(getActivity(),arrayList);
         searchView.setAdapter(cartAdapter);
         search("");
         searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {

@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.roomzy.Controller.CartDBManager;
 import com.app.roomzy.Controller.CurrencyFormatter;
+import com.app.roomzy.Controller.HistoryDBManager;
 import com.app.roomzy.Controller.HistoryUpdated;
 import com.app.roomzy.ImageViewActivity;
 import com.app.roomzy.MainActivity;
@@ -45,7 +48,7 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
     private Room trendingProducts;
     private ArrayList<Room> savedProducts = new ArrayList<>();
     private static final int REQUEST_CALL_PERMISSION = 1;
-    ImageView imageView,imageView2;
+    ImageView imageView,imageView2, imageView3;
     ImageView like;
     Button buyBtn, callBtn;
 //    DatabaseHelper databaseHelper;
@@ -56,8 +59,12 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
     CardView imageRoom1;
     FirebaseUser mAuth;
 
+    HistoryDBManager productHistory;
     HistoryUpdated historyUpdated;
-    TextView productName,productPrice,productDesc;
+
+    CartDBManager cartDBManager;
+
+    TextView productName,productPrice,productDesc, txtdesc;
     public ProductDetailFragment(Context mContext, Room trendingProducts, HistoryUpdated historyUpdated) {
         this.mContext=mContext;
         this.trendingProducts = trendingProducts;
@@ -70,23 +77,6 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         this.historyUpdated=null;
     }
 
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment ProductDetailFragment.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static ProductDetailFragment newInstance(String param1, String param2) {
-//        ProductDetailFragment fragment = new ProductDetailFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Nullable
     @Override
@@ -96,6 +86,8 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         mAuth = FirebaseAuth.getInstance().getCurrentUser();
         imageView = view.findViewById(R.id.mainImage);
         imageView2 = view.findViewById(R.id.img1);
+        imageView3 = view.findViewById(R.id.img2);
+
         productName = (TextView) view.findViewById(R.id.pName);
         productPrice = (TextView) view.findViewById(R.id.pPrice);
         parent = (RelativeLayout) view.findViewById(R.id.parent);
@@ -106,11 +98,13 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         imageRoom1 = (CardView) view.findViewById(R.id.amazonIcon);
         callBtn = (Button) view.findViewById(R.id.buyCall);
 
-//        databaseHelper = new DatabaseHelper(getContext());
-//        productHistory = new ProductHistory(getContext());
+        txtdesc = (TextView ) view.findViewById(R.id.txtdesc);
+
+        cartDBManager = new CartDBManager(getContext());
+        productHistory = new HistoryDBManager(getContext());
 
         ArrayList<Room> arrayList = new ArrayList<>();
-//        arrayList = databaseHelper.getAllData();
+        arrayList = cartDBManager.getAllCartRooms();
         for (Room trendingProducts1 : arrayList){
             if (trendingProducts1.getId().equalsIgnoreCase(trendingProducts.getId())){
                 like.setImageResource(R.drawable.heart_filled2);
@@ -125,11 +119,11 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
 
             }
         });
-        imageRoom1.setOnClickListener(new View.OnClickListener() {
+        imageView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ImageViewActivity.class);
-                intent.putExtra("uri",trendingProducts.getImageURL());
+                intent.putExtra("uri",trendingProducts.getSubImages().get(1));
                 startActivity(intent);
             }
         });
@@ -143,22 +137,21 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (click ==0 ){
                     like.setImageResource(R.drawable.heart_filled2);
                     ++click;
-//                    if(databaseHelper.addText(trendingProducts))
+                    if(cartDBManager.addRoomToCart(trendingProducts))
                         Toast.makeText(mContext, "Added to cart", Toast.LENGTH_SHORT).show();
 
-                }else{
+                }else {
                     like.setImageResource(R.drawable.heart2);
                     --click;
-//                    if(databaseHelper.deleteRow(trendingProducts.getId()))
+                    if (cartDBManager.removeRoomFromCart(trendingProducts.getId()))
                         Toast.makeText(mContext, "Removed from cart", Toast.LENGTH_SHORT).show();
-
-
                 }
 
-            }
+                }
         });
         report.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,10 +168,12 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         productName.setText(trendingProducts.getName());
         productPrice.setText(CurrencyFormatter.formatVietnameseCurrency(trendingProducts.getPrice()));
         productDesc.setText(trendingProducts.getAddress());
+        txtdesc.setText(trendingProducts.getDescription());
 
         Picasso.get().load(trendingProducts.getImageURL()).into(imageView);
-        Picasso.get().load(trendingProducts.getImageURL()).into(imageView2);
-
+        Picasso.get().load(trendingProducts.getSubImages().get(0)).into(imageView2);
+        Picasso.get().load(trendingProducts.getSubImages().get(1)).into(imageView3);
+        Log.d("PhamNguyen", trendingProducts.getSubImages().get(1));
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,7 +188,7 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ImageViewActivity.class);
-                intent.putExtra("uri",trendingProducts.getImageURL());
+                intent.putExtra("uri",trendingProducts.getSubImages().get(0));
                 startActivity(intent);
             }
         });
@@ -206,8 +201,9 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
 
     public void addInHistory(){
         if (historyUpdated!=null){
-
-//            }
+            ArrayList<Room>products = productHistory.getAllViewedRooms();
+            historyUpdated.getUpdateResult(true);
+            productHistory.addRoomToViewed(trendingProducts);
         }
     }
 

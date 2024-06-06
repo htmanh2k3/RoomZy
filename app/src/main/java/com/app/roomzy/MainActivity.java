@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.app.roomzy.Adapter.HomePageApdater;
+import com.app.roomzy.Controller.CartDBManager;
 import com.app.roomzy.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     HomePageApdater homePageApdater;
     ActivityMainBinding mainBinding;
     private MenuItem prevMenuItem;
+    CartDBManager cartDBManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,15 @@ public class MainActivity extends AppCompatActivity {
         homePageApdater = new HomePageApdater(getSupportFragmentManager());
         mainBinding.viewpager.setAdapter(homePageApdater);
         mainBinding.viewpager.setOffscreenPageLimit(0);
+        mainBinding.cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
         Handler handler = new Handler();
+        cartDBManager = new CartDBManager(this);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

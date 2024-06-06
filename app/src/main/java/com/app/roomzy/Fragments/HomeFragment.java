@@ -24,7 +24,11 @@ import android.widget.Toast;
 
 import com.app.roomzy.Adapter.AllCartAdapter;
 import com.app.roomzy.Adapter.CategoriesAdapter;
+import com.app.roomzy.Adapter.RecentHistoryAdapter;
 import com.app.roomzy.Adapter.TrendingRecyclerAdapter;
+import com.app.roomzy.Controller.CartDBManager;
+import com.app.roomzy.Controller.DatabaseHelper;
+import com.app.roomzy.Controller.HistoryDBManager;
 import com.app.roomzy.Controller.HistoryUpdated;
 import com.app.roomzy.Controller.RoomController;
 import com.app.roomzy.Models.CategoriesModel;
@@ -49,9 +53,9 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
 
     NestedScrollView nestedScrollView;
 
-
     CategoriesAdapter mAdapter3;
 
+    HistoryDBManager productsHistory;
 
 
     ArrayList<Room> trendingList = new ArrayList<>();
@@ -59,7 +63,7 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
     ArrayList<Room>topVNList = new ArrayList<>();
     ArrayList<Room>toplocationList = new ArrayList<>();
 
-
+    ArrayList<Room>recentHistory = new ArrayList<>();
 
     ArrayList<String>ranks = new ArrayList<>();
 
@@ -67,7 +71,7 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
     private RoomController roomController;
     public static HistoryUpdated historyUpdated;
 
-
+    RecentHistoryAdapter mRecentAdapter;
     TrendingRecyclerAdapter trendingRecyclerAdapter;
     AllCartAdapter topVNRecyclerAdapter;
     AllCartAdapter topLocationAdapter;
@@ -160,17 +164,31 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
                 mLocalViews.setLayoutManager(new GridLayoutManager(getContext(), 3));
                 mLocalViews.setAdapter(topLocationAdapter);
 
+
+                productsHistory = new HistoryDBManager(getContext());
+                recentHistory = productsHistory.getAllViewedRooms();
+                CartDBManager cartDBManager = new CartDBManager(getContext());
+
+                mRecentAdapter = new RecentHistoryAdapter(recentHistory,cartDBManager,getContext(),getFragmentManager());
+                LinearLayoutManager linearLayoutManager4 = new LinearLayoutManager(getContext());
+                mRecentView.setLayoutManager(linearLayoutManager4);
+                mRecentView.setAdapter(mRecentAdapter);
+
             }
         },1000);
-        //trending
-
-
-
-
+        if (recentHistory.size() == 0){
+            noHistoryImage.setVisibility(View.VISIBLE);
+        }else{
+            noHistoryImage.setVisibility(View.GONE);
+        }
         clearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                productsHistory.deleteRow();
+                recentHistory.clear();
+                noHistoryImage.setVisibility(View.VISIBLE);
+                mRecentAdapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Product view history cleared", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -185,10 +203,11 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
         viewlocalAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), ViewAllActivity.class);
-//                intent.putParcelableArrayListExtra("list",locals);
+                Intent intent = new Intent(getContext(), ViewAllActivity.class);
+//                intent.putParcelableArrayListExtra("list",);
 //                intent.putExtra("type","local");
-//                startActivity(intent);
+                intent.putExtra("type","all");
+                startActivity(intent);
             }
         });
 
@@ -246,7 +265,11 @@ public class HomeFragment extends Fragment  implements HistoryUpdated {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
+                    recentHistory.clear();
+                    recentHistory.addAll(productsHistory.getAllViewedRooms());
+                    mRecentAdapter.notifyDataSetChanged();
+                    if(recentHistory.size() > 0)
+                        noHistoryImage.setVisibility(View.GONE);
                 }
             },1000);
         }

@@ -23,6 +23,30 @@ public class RoomController {
     }
 
     public void getAllRooms(final OnRoomDataLoadedListener listener) {
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                ArrayList<Room> roomList = new ArrayList<>();
+//                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+//                    String id = roomSnapshot.child("Id").getValue(String.class);
+//                    String name = roomSnapshot.child("Name").getValue(String.class);
+//                    String address = roomSnapshot.child("Address").getValue(String.class);
+//                    String imageUrl = roomSnapshot.child("Image").getValue(String.class);
+//                    String type = roomSnapshot.child("Type").getValue(String.class);
+//                    int price = roomSnapshot.child("Price").getValue(Integer.class);
+//                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+//
+//                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
+//                    roomList.add(room);
+//                }
+//                listener.onRoomDataLoaded(roomList);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.e("RoomController", "Failed to read value.", databaseError.toException());
+//            }
+//        });
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -35,8 +59,13 @@ public class RoomController {
                     String type = roomSnapshot.child("Type").getValue(String.class);
                     int price = roomSnapshot.child("Price").getValue(Integer.class);
                     int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+                    ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
+                    ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
+                    String description = roomSnapshot.child("description").getValue(String.class);
+                    String locationId = roomSnapshot.child("LocationId").getValue(String.class);
+                    String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
 
-                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
+                    Room room = new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
                     roomList.add(room);
                 }
                 listener.onRoomDataLoaded(roomList);
@@ -51,11 +80,36 @@ public class RoomController {
 
     // Hàm tìm kiếm phòng theo tên
     public void searchRoomsByName(final String keyword, final OnRoomDataLoadedListener listener) {
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                ArrayList<Room> roomList = new ArrayList<>();
+//
+//                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+//                    String id = roomSnapshot.child("Id").getValue(String.class);
+//                    String name = roomSnapshot.child("Name").getValue(String.class);
+//                    String address = roomSnapshot.child("Address").getValue(String.class);
+//                    String imageUrl = roomSnapshot.child("Image").getValue(String.class);
+//                    String type = roomSnapshot.child("Type").getValue(String.class);
+//                    int price = roomSnapshot.child("Price").getValue(Integer.class);
+//                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+//
+//                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
+//                    if(room.getName().toLowerCase().contains(keyword.toLowerCase()) ||room.getAddress().toLowerCase().contains(keyword.toLowerCase()) )
+//                        roomList.add(room);
+//                }
+//                listener.onRoomDataLoaded(roomList);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.e("RoomController", "Failed to read value.", databaseError.toException());
+//            }
+//        });
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Room> roomList = new ArrayList<>();
-
                 for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
                     String id = roomSnapshot.child("Id").getValue(String.class);
                     String name = roomSnapshot.child("Name").getValue(String.class);
@@ -64,10 +118,16 @@ public class RoomController {
                     String type = roomSnapshot.child("Type").getValue(String.class);
                     int price = roomSnapshot.child("Price").getValue(Integer.class);
                     int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+                    ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
+                    ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
+                    String description = roomSnapshot.child("description").getValue(String.class);
+                    String locationId = roomSnapshot.child("LocationId").getValue(String.class);
+                    String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
 
-                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
-                    if(room.getName().toLowerCase().contains(keyword.toLowerCase()) ||room.getAddress().toLowerCase().contains(keyword.toLowerCase()) )
+                    Room room = new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
+                    if (room.getName().toLowerCase().contains(keyword.toLowerCase()) || room.getAddress().toLowerCase().contains(keyword.toLowerCase())) {
                         roomList.add(room);
+                    }
                 }
                 listener.onRoomDataLoaded(roomList);
             }

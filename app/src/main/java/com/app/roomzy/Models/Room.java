@@ -1,5 +1,7 @@
 package com.app.roomzy.Models;
 
+import java.util.ArrayList;
+
 public class Room {
     private String address;
     private String id;
@@ -8,8 +10,13 @@ public class Room {
     private int price;
     private int rate;
     private String type;
+    private ArrayList<String> subImages;
+    private ArrayList<String> subRooms;
+    private String description;
+    private String locationId;
+    private String categoriesId;
 
-    public Room(String address, String id, String imageURL, String name, int price, int rate, String type) {
+    public Room(String address, String id, String imageURL, String name, int price, int rate, String type, ArrayList<String> subImages, ArrayList<String> subRooms, String description, String locationId, String categoriesId) {
         this.address = address;
         this.id = id;
         this.imageURL = imageURL;
@@ -17,11 +24,17 @@ public class Room {
         this.price = price;
         this.rate = rate;
         this.type = type;
+        this.subImages = subImages;
+        this.subRooms = subRooms;
+        this.description = description;
+        this.locationId = locationId;
+        this.categoriesId = categoriesId;
     }
 
     public Room() {
     }
 
+    // Getters and Setters
     public String getAddress() {
         return address;
     }
@@ -76,5 +89,45 @@ public class Room {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public ArrayList<String> getSubImages() {
+        return subImages;
+    }
+
+    public void setSubImages(ArrayList<String> subImages) {
+        this.subImages = subImages;
+    }
+
+    public ArrayList<String> getSubRooms() {
+        return subRooms;
+    }
+
+    public void setSubRooms(ArrayList<String> subRooms) {
+        this.subRooms = subRooms;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getCategoriesId() {
+        return categoriesId;
+    }
+
+    public void setCategoriesId(String categoriesId) {
+        this.categoriesId = categoriesId;
     }
 }

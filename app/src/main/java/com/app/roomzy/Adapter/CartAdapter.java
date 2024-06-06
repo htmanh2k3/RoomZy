@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.roomzy.BuildConfig;
+import com.app.roomzy.CartActivity;
+import com.app.roomzy.Controller.CartDBManager;
 import com.app.roomzy.Controller.CurrencyFormatter;
 import com.app.roomzy.Fragments.ProductDetailFragment;
 import com.app.roomzy.Models.Room;
@@ -27,13 +30,20 @@ import java.util.ArrayList;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> {
     ArrayList<Room> products = new ArrayList<>();
     Context context;
-    Context mContext;
     FragmentManager fragmentManager;
+    CartDBManager cartDBManager;
 
+    int click =1 ;
     public CartAdapter(ViewAllActivity viewAllProductsActivity, ArrayList<Room> products) {
         context = viewAllProductsActivity;
         this.products = products;
+    }
 
+    public CartAdapter(CartActivity cartActivity, ArrayList<Room> arrayList, CartDBManager cartDBManager, FragmentManager fragmentManager) {
+        this.context = cartActivity;
+        this.fragmentManager=fragmentManager;
+        this.products=arrayList;
+        this.cartDBManager=cartDBManager;
     }
 
     public CartAdapter(FragmentActivity activity, ArrayList<Room> arrayList) {
@@ -54,23 +64,41 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-        Room model = products.get(position);
-        holder.productName.setText(model.getName());
-        holder.productPrice.setText(CurrencyFormatter.formatVietnameseCurrency(model.getPrice()));
-        holder.productDescription.setText(model.getAddress());
-        Picasso.get().load(model.getImageURL())
-                .into(holder.productImage);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        Room room = products.get(position);
+
+        holder.pName.setText(room.getName());
+        holder.pPrice.setText(CurrencyFormatter.formatVietnameseCurrency(room.getPrice()));
+        holder.pDesc.setText(room.getAddress());
+
+        Picasso.get().load(room.getImageURL())
+                .into(holder.pImage);
+
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ProductDetailFragment bottomSheet = new ProductDetailFragment(mContext, model);
-//                bottomSheet.show(fragmentManager, "ModalBottomSheet");
-                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-                ProductDetailFragment bottomSheet = new ProductDetailFragment(context, model);
-                bottomSheet.show(manager, "ModalBottomSheet");
+                if (click ==0 ){
+                    holder.likeBtn.setImageResource(R.drawable.heart_filled2);
+                    ++click;
+                    if(cartDBManager.addRoomToCart(room)){
+
+                        Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
+                    }
+
+                }else{
+                    holder.likeBtn.setImageResource(R.drawable.heart2);
+                    --click;
+                    if(cartDBManager.removeRoomFromCart(room.getId())){
+
+                        Toast.makeText(context, "Removed from cart", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+                }
+
             }
         });
-        holder.productShare.setOnClickListener(new View.OnClickListener() {
+        holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
@@ -79,6 +107,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> {
                         "Download the RoomZy App from the google play store in order to view the product : https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
                 sendIntent.setType("text/plain");
                 context.startActivity(sendIntent);
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductDetailFragment bottomSheet = new ProductDetailFragment(context, room);
+                bottomSheet.show(fragmentManager, "ModalBottomSheet");
             }
         });
     }
@@ -91,15 +127,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.Viewholder> {
 
     public static class Viewholder extends RecyclerView.ViewHolder{
 
-        TextView productName,productPrice,productDescription;
-        ImageView productImage,productShare;
+        private TextView pName,pDesc,pPrice;
+        private ImageView pImage,likeBtn,shareBtn;
         public Viewholder(@NonNull  View itemView) {
             super(itemView);
-            productName = (TextView) itemView.findViewById(R.id.pName);
-            productDescription = (TextView) itemView.findViewById(R.id.pDesc);
-            productPrice = (TextView) itemView.findViewById(R.id.pPrice);
-            productImage = (ImageView) itemView.findViewById(R.id.pImage);
-            productShare = (ImageView) itemView.findViewById(R.id.shareBtn);
+            pName = (TextView) itemView.findViewById(R.id.pName);
+            pPrice = (TextView) itemView.findViewById(R.id.pPrice);
+            pDesc = (TextView) itemView.findViewById(R.id.pDesc);
+            pImage = (ImageView) itemView.findViewById(R.id.pImage);
+            likeBtn = (ImageView) itemView.findViewById(R.id.likeBtn);
+            shareBtn = (ImageView) itemView.findViewById(R.id.shareBtn);
         }
     }
 }
