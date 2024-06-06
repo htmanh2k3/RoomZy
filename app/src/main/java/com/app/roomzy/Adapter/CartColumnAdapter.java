@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.roomzy.Controller.CurrencyFormatter;
+import com.app.roomzy.Controller.HistoryUpdated;
 import com.app.roomzy.Fragments.HomeFragment;
 import com.app.roomzy.Fragments.ProductDetailFragment;
 import com.app.roomzy.Models.Room;
@@ -25,9 +26,16 @@ import java.util.ArrayList;
 public class CartColumnAdapter extends RecyclerView.Adapter<CartColumnAdapter.Viewholder> {
     Context context;
     ArrayList<Room> rooms = new ArrayList<>();
+    FragmentManager fragmentManager;
     public CartColumnAdapter(ViewAllActivity viewAllProductsActivity, ArrayList<Room> locals) {
         context = viewAllProductsActivity;
         this.rooms=locals;
+    }
+    public CartColumnAdapter(ArrayList<Room> rooms, Context context, FragmentManager supportFragmentManager) {
+        context = context;
+        this.rooms=rooms;
+        this.fragmentManager=supportFragmentManager;
+
     }
 
     @NonNull

@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.roomzy.BookingActivity;
 import com.app.roomzy.Controller.CartDBManager;
 import com.app.roomzy.Controller.CurrencyFormatter;
 import com.app.roomzy.Controller.HistoryDBManager;
@@ -115,8 +116,9 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         buyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                Intent intent = new Intent(getContext(), BookingActivity.class);
+//                intent.putExtra("product", trendingProducts);
+                startActivity(intent);
             }
         });
         imageView3.setOnClickListener(new View.OnClickListener() {
