@@ -27,7 +27,7 @@ public class FilterTheDataActivity extends AppCompatActivity {
     public static final String FILTER_CATEGORY = "FILTER_CATEGORY";
     public static final String FILTER_LOCATION = "FILTER_LOCATION";
     public static final String FILTER_LOCATION_NAME = "FILTER_LOCATION_NAME";
-
+    public static final String FILTER_CATEGORY_NAME = "FILTER_CATEGORY_NAME";
     public static final String FILTER_MIN_PRICE = "FILTER_MIN_PRICE";
     public static final String FILTER_MAX_PRICE = "FILTER_MAX_PRICE";
     public static final String FILTER_IS_APPLY = "FILTER_IS_APPLY";
@@ -111,7 +111,7 @@ public class FilterTheDataActivity extends AppCompatActivity {
         CategoriesModel categoriesModel = categoriesModelArrayList.get(selectedCategory);
         LocationModel locationModel = locationModelArrayList.get(selectedLocation);
 
-        saveFilterOptions(categoriesModel.getId(), locationModel.getId(), selectedMinPrice, selectedMaxPrice, locationModel.getName());
+        saveFilterOptions(categoriesModel.getId(), locationModel.getId(), selectedMinPrice, selectedMaxPrice, locationModel.getName(), categoriesModel.getName());
 
         Intent intent = new Intent();
         intent.putExtra(FILTER_CATEGORY, categoriesModel.getId());
@@ -137,7 +137,7 @@ public class FilterTheDataActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private void saveFilterOptions(String category, String location, String minPrice, String maxPrice, String locationName) {
+    private void saveFilterOptions(String category, String location, String minPrice, String maxPrice, String locationName, String categoryName) {
         SharedPreferences sharedPreferences = getSharedPreferences("FilterPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(FILTER_CATEGORY, category);
@@ -145,7 +145,7 @@ public class FilterTheDataActivity extends AppCompatActivity {
         editor.putString(FILTER_MIN_PRICE, minPrice);
         editor.putString(FILTER_MAX_PRICE, maxPrice);
         editor.putString(FILTER_LOCATION_NAME, locationName);
-
+        editor.putString(FILTER_CATEGORY_NAME, categoryName);
         editor.apply();
     }
 

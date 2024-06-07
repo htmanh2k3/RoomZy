@@ -1,8 +1,5 @@
 package com.app.roomzy;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +9,20 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Objects;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -78,33 +81,33 @@ public class RegisterActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             String user_id = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-//                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//                            HashMap hashMap = new HashMap();
-//                            hashMap.put("name",name);
-//                            hashMap.put("email",email);
-//                            hashMap.put("profile","default");
-//                            hashMap.put("user_type","staff");
-//                            hashMap.put("online","false");
-//                            hashMap.put("current_uid",user_id);
-//
-//                            db.collection("Users").document(user_id)
-//                                    .update(hashMap)
-//                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<DocumentReference> task) {
-//                                            if (task.isSuccessful()){
-//                                                Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
-//                                                startActivity(intent);
-//                                                finish();
-//                                            }
-//                                        }
-//                                    }).addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//
-//                                        }
-//                                    });
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                            HashMap hashMap = new HashMap();
+                            hashMap.put("name",name);
+                            hashMap.put("email",email);
+                            hashMap.put("profile","default");
+                            hashMap.put("user_type","staff");
+                            hashMap.put("online","false");
+                            hashMap.put("current_uid",user_id);
+
+                            db.collection("Users").document(user_id)
+                                    .update(hashMap)
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                                            if (task.isSuccessful()){
+                                                Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                        }
+                                    });
 
 
 

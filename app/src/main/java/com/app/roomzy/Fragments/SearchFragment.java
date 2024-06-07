@@ -57,6 +57,14 @@ public class SearchFragment extends Fragment {
     FirebaseController firebaseController;
     RoomController roomController;
     private static final int FILTER_REQUEST_CODE = 1;
+    private boolean filterApplied = false;
+
+    private String currentCategory;
+    private String currentLocation;
+    private String currentMinPrice;
+    private String currentMaxPrice;
+    private String currentLocationName;
+
 
     TextView tvLocationName;
 
@@ -96,7 +104,17 @@ public class SearchFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                search(searchBox.getText().toString());
+                if(filterApplied == false)
+                    search(searchBox.getText().toString());
+                else
+                    searchWithFilters(
+                            searchBox.getText().toString(),
+                            currentCategory,
+                            currentLocation,
+                            currentMinPrice,
+                            currentMaxPrice
+                    );
+
             }
         });
         image_filter.setOnClickListener(new View.OnClickListener() {
@@ -107,25 +125,26 @@ public class SearchFragment extends Fragment {
                 startActivityForResult(intent, FILTER_REQUEST_CODE);
             }
         });
-
-
-
-
+        tvLocationName.setText("Tất cả");
         return mMainView;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FILTER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            String category = data.getStringExtra(FILTER_CATEGORY);
-            String location = data.getStringExtra(FILTER_LOCATION);
-            String minPrice = data.getStringExtra(FILTER_MIN_PRICE);
-            String maxPrice = data.getStringExtra(FILTER_MAX_PRICE);
-            String locationName = data.getStringExtra(FILTER_LOCATION_NAME);
-            tvLocationName.setText(locationName + category + location);
-            applyFilters(category, location, minPrice, maxPrice);
-        }
+        if (requestCode == FILTER_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            filterApplied = true;
+            currentCategory = data.getStringExtra(FILTER_CATEGORY);
+            currentLocation = data.getStringExtra(FILTER_LOCATION);
+            currentMinPrice = data.getStringExtra(FILTER_MIN_PRICE);
+            currentMaxPrice = data.getStringExtra(FILTER_MAX_PRICE);
+            currentLocationName = data.getStringExtra(FILTER_LOCATION_NAME);
+            tvLocationName.setText(currentLocationName);
+
+            applyFilters(currentCategory, currentLocation, currentMinPrice, currentMaxPrice);
+        }else
+            filterApplied = false;
     }
     private void applyFilters(String category, String location, String minPrice, String maxPrice) {
         searchWithFilters(searchBox.getText().toString(), category, location, minPrice, maxPrice);
