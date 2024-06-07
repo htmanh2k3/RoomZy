@@ -1,10 +1,18 @@
 package com.app.roomzy.Fragments;
 
+import static com.app.roomzy.FilterTheDataActivity.FILTER_CATEGORY;
+import static com.app.roomzy.FilterTheDataActivity.FILTER_LOCATION;
+import static com.app.roomzy.FilterTheDataActivity.FILTER_LOCATION_NAME;
+import static com.app.roomzy.FilterTheDataActivity.FILTER_MAX_PRICE;
+import static com.app.roomzy.FilterTheDataActivity.FILTER_MIN_PRICE;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +56,10 @@ public class SearchFragment extends Fragment {
     ArrayList<Room> arrayList = new ArrayList<>();
     FirebaseController firebaseController;
     RoomController roomController;
+    private static final int FILTER_REQUEST_CODE = 1;
+
+    TextView tvLocationName;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +80,7 @@ public class SearchFragment extends Fragment {
         searchView.setLayoutManager(linearLayoutManager);
         cartAdapter = new CartAllItemAdapter(getActivity(),arrayList);
         searchView.setAdapter(cartAdapter);
+        tvLocationName = (TextView) mMainView.findViewById(R.id.tvLocationName);
         search("");
         searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -91,7 +104,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Mở Thành Công!!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getContext(), FilterTheDataActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, FILTER_REQUEST_CODE);
             }
         });
 
@@ -100,8 +113,37 @@ public class SearchFragment extends Fragment {
 
         return mMainView;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FILTER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            String category = data.getStringExtra(FILTER_CATEGORY);
+            String location = data.getStringExtra(FILTER_LOCATION);
+            String minPrice = data.getStringExtra(FILTER_MIN_PRICE);
+            String maxPrice = data.getStringExtra(FILTER_MAX_PRICE);
+            String locationName = data.getStringExtra(FILTER_LOCATION_NAME);
+            tvLocationName.setText(locationName + category + location);
+            applyFilters(category, location, minPrice, maxPrice);
+        }
+    }
+    private void applyFilters(String category, String location, String minPrice, String maxPrice) {
+        searchWithFilters(searchBox.getText().toString(), category, location, minPrice, maxPrice);
+    }
+
     private void search(String phrase){
         roomController.searchRoomsByName(phrase, new RoomController.OnRoomDataLoadedListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onRoomDataLoaded(ArrayList<Room> roomList) {
+                arrayList.clear();
+                arrayList.addAll(roomList);
+                cartAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+    private void searchWithFilters(String phrase, String category, String location, String minPrice, String maxPrice) {
+        roomController.searchRoomsByFilters(phrase, category, location, minPrice, maxPrice, new RoomController.OnRoomDataLoadedListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onRoomDataLoaded(ArrayList<Room> roomList) {

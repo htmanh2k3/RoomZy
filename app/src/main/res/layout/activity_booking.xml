@@ -105,10 +105,16 @@
                     android:textColor="#000000"
                     android:fontFamily="@font/helvetica_bold" />
 
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
                 <Button
                     android:id="@+id/checkInDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
                     android:layout_marginStart="10dp"
                     android:text="Select Date"
                     android:background="@drawable/button_bg"
@@ -122,6 +128,7 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:paddingTop="10dp"
+                android:gravity="center|fill_horizontal"
                 android:paddingBottom="10dp">
 
                 <TextView
@@ -132,11 +139,18 @@
                     android:textColor="#000000"
                     android:fontFamily="@font/helvetica_bold" />
 
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
                 <Button
                     android:id="@+id/checkOutDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:paddingHorizontal="10dp"
+
                     android:text="Select Date"
                     android:background="@drawable/button_bg"
                     android:textColor="#ffffff" />
@@ -226,10 +240,12 @@
                     android:textColor="#000000"
                     android:textSize="15dp" />
 
+
                 <TextView
                     android:id="@+id/hotelDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
                     android:layout_marginTop="10dp"
                     android:textColor="#797979"
                     android:text="A beautiful hotel located in the heart of the city..." />

@@ -23,6 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Viewholder> {
     ArrayList<CategoriesModel> categoriesList = new ArrayList<>();
     Context mContext;
+    int mLayout;
     public CategoriesAdapter(ArrayList<CategoriesModel> categoriesList, Context context) {
         this.categoriesList=categoriesList;
         this.mContext=context;

@@ -22,7 +22,8 @@ public class RoomController {
         databaseReference = FirebaseDatabase.getInstance(ConFigManager.getFirebaseUrl()).getReference("Room");
     }
 
-    public void getAllRooms(final OnRoomDataLoadedListener listener) {
+//    public void getAllRooms(final OnRoomDataLoadedListener listener) {
+
 //        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -35,8 +36,13 @@ public class RoomController {
 //                    String type = roomSnapshot.child("Type").getValue(String.class);
 //                    int price = roomSnapshot.child("Price").getValue(Integer.class);
 //                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+//                    ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
+//                    ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
+//                    String description = roomSnapshot.child("description").getValue(String.class);
+//                    String locationId = roomSnapshot.child("LocationId").getValue(String.class);
+//                    String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
 //
-//                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
+//                    Room room = new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
 //                    roomList.add(room);
 //                }
 //                listener.onRoomDataLoaded(roomList);
@@ -47,44 +53,15 @@ public class RoomController {
 //                Log.e("RoomController", "Failed to read value.", databaseError.toException());
 //            }
 //        });
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Room> roomList = new ArrayList<>();
-                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
-                    String id = roomSnapshot.child("Id").getValue(String.class);
-                    String name = roomSnapshot.child("Name").getValue(String.class);
-                    String address = roomSnapshot.child("Address").getValue(String.class);
-                    String imageUrl = roomSnapshot.child("Image").getValue(String.class);
-                    String type = roomSnapshot.child("Type").getValue(String.class);
-                    int price = roomSnapshot.child("Price").getValue(Integer.class);
-                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
-                    ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
-                    ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
-                    String description = roomSnapshot.child("description").getValue(String.class);
-                    String locationId = roomSnapshot.child("LocationId").getValue(String.class);
-                    String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
-
-                    Room room = new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
-                    roomList.add(room);
-                }
-                listener.onRoomDataLoaded(roomList);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("RoomController", "Failed to read value.", databaseError.toException());
-            }
-        });
-    }
-
-    // Hàm tìm kiếm phòng theo tên
-    public void searchRoomsByName(final String keyword, final OnRoomDataLoadedListener listener) {
+//    }
+//
+//    // Hàm tìm kiếm phòng theo tên
+//    public void searchRoomsByName(final String keyword, final OnRoomDataLoadedListener listener) {
+//
 //        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                ArrayList<Room> roomList = new ArrayList<>();
-//
 //                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
 //                    String id = roomSnapshot.child("Id").getValue(String.class);
 //                    String name = roomSnapshot.child("Name").getValue(String.class);
@@ -93,10 +70,16 @@ public class RoomController {
 //                    String type = roomSnapshot.child("Type").getValue(String.class);
 //                    int price = roomSnapshot.child("Price").getValue(Integer.class);
 //                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+//                    ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
+//                    ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
+//                    String description = roomSnapshot.child("description").getValue(String.class);
+//                    String locationId = roomSnapshot.child("LocationId").getValue(String.class);
+//                    String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
 //
-//                    Room room = new Room(address,id, imageUrl,name, price, rate, type);
-//                    if(room.getName().toLowerCase().contains(keyword.toLowerCase()) ||room.getAddress().toLowerCase().contains(keyword.toLowerCase()) )
+//                    Room room = new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
+//                    if (room.getName().toLowerCase().contains(keyword.toLowerCase()) || room.getAddress().toLowerCase().contains(keyword.toLowerCase())) {
 //                        roomList.add(room);
+//                    }
 //                }
 //                listener.onRoomDataLoaded(roomList);
 //            }
@@ -106,41 +89,147 @@ public class RoomController {
 //                Log.e("RoomController", "Failed to read value.", databaseError.toException());
 //            }
 //        });
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Room> roomList = new ArrayList<>();
-                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
-                    String id = roomSnapshot.child("Id").getValue(String.class);
-                    String name = roomSnapshot.child("Name").getValue(String.class);
-                    String address = roomSnapshot.child("Address").getValue(String.class);
-                    String imageUrl = roomSnapshot.child("Image").getValue(String.class);
-                    String type = roomSnapshot.child("Type").getValue(String.class);
-                    int price = roomSnapshot.child("Price").getValue(Integer.class);
-                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
-                    ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
-                    ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
-                    String description = roomSnapshot.child("description").getValue(String.class);
-                    String locationId = roomSnapshot.child("LocationId").getValue(String.class);
-                    String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
+//    }
+//
+//
+//    public interface OnRoomDataLoadedListener {
+//        void onRoomDataLoaded(ArrayList<Room> roomList);
+//    }
+//
+//    public void searchRoomsByFilters(final String keyword, final String category, final String location, final String minPrice, final String maxPrice, final OnRoomDataLoadedListener listener) {
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                ArrayList<Room> roomList = new ArrayList<>();
+//                int min = minPrice.isEmpty() ? Integer.MIN_VALUE : Integer.parseInt(minPrice);
+//                int max = maxPrice.isEmpty() ? Integer.MAX_VALUE : Integer.parseInt(maxPrice);
+//
+//                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+//                    String id = roomSnapshot.child("Id").getValue(String.class);
+//                    String name = roomSnapshot.child("Name").getValue(String.class);
+//                    String address = roomSnapshot.child("Address").getValue(String.class);
+//                    String imageUrl = roomSnapshot.child("Image").getValue(String.class);
+//                    String type = roomSnapshot.child("Type").getValue(String.class);
+//                    int price = roomSnapshot.child("Price").getValue(Integer.class);
+//                    int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+//                    ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
+//                    ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
+//                    String description = roomSnapshot.child("description").getValue(String.class);
+//                    String locationId = roomSnapshot.child("LocationId").getValue(String.class);
+//                    String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
+//
+//                    Room room = new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
+//
+//                    if ((keyword.isEmpty() || room.getName().toLowerCase().contains(keyword.toLowerCase()) || room.getAddress().toLowerCase().contains(keyword.toLowerCase())) &&
+//                            (category.equals("All") || room.getCategoriesId().equals(category)) &&
+//                            (location.equals("All") || room.getLocationId().equals(location)) &&
+//                            (price >= min && price <= max)) {
+//                        roomList.add(room);
+//                    }
+//                }
+//                listener.onRoomDataLoaded(roomList);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.e("RoomController", "Failed to read value.", databaseError.toException());
+//            }
+//        });
+//    }
 
-                    Room room = new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
-                    if (room.getName().toLowerCase().contains(keyword.toLowerCase()) || room.getAddress().toLowerCase().contains(keyword.toLowerCase())) {
-                        roomList.add(room);
+        public void getAllRooms(final OnRoomDataLoadedListener listener) {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<Room> roomList = new ArrayList<>();
+                    for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+                        Room room = parseRoomSnapshot(roomSnapshot);
+                        if (room != null) {
+                            roomList.add(room);
+                        }
                     }
+                    listener.onRoomDataLoaded(roomList);
                 }
-                listener.onRoomDataLoaded(roomList);
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("RoomController", "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
+
+        public void searchRoomsByName(final String keyword, final OnRoomDataLoadedListener listener) {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<Room> roomList = new ArrayList<>();
+                    for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+                        Room room = parseRoomSnapshot(roomSnapshot);
+                        if (room != null && (room.getName().toLowerCase().contains(keyword.toLowerCase()) || room.getAddress().toLowerCase().contains(keyword.toLowerCase()))) {
+                            roomList.add(room);
+                        }
+                    }
+                    listener.onRoomDataLoaded(roomList);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("RoomController", "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
+
+        public void searchRoomsByFilters(final String keyword, final String category, final String location, final String minPrice, final String maxPrice, final OnRoomDataLoadedListener listener) {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<Room> roomList = new ArrayList<>();
+                    int min = minPrice.isEmpty() ? Integer.MIN_VALUE : Integer.parseInt(minPrice);
+                    int max = maxPrice.isEmpty() ? Integer.MAX_VALUE : Integer.parseInt(maxPrice);
+
+                    for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+                        Room room = parseRoomSnapshot(roomSnapshot);
+                        if (room != null &&
+                                (keyword.isEmpty() || room.getName().toLowerCase().contains(keyword.toLowerCase()) || room.getAddress().toLowerCase().contains(keyword.toLowerCase())) &&
+                                (category.equals("All") || room.getCategoriesId().equals(category)) &&
+                                (location.equals("All") || room.getLocationId().equals(location)) &&
+                                (room.getPrice() >= min && room.getPrice() <= max)) {
+                            roomList.add(room);
+                        }
+                    }
+                    listener.onRoomDataLoaded(roomList);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e("RoomController", "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
+
+        private Room parseRoomSnapshot(DataSnapshot roomSnapshot) {
+            try {
+                String id = roomSnapshot.child("Id").getValue(String.class);
+                String name = roomSnapshot.child("Name").getValue(String.class);
+                String address = roomSnapshot.child("Address").getValue(String.class);
+                String imageUrl = roomSnapshot.child("Image").getValue(String.class);
+                String type = roomSnapshot.child("Type").getValue(String.class);
+                int price = roomSnapshot.child("Price").getValue(Integer.class);
+                int rate = roomSnapshot.child("Rate").getValue(Integer.class);
+                ArrayList<String> subImages = (ArrayList<String>) roomSnapshot.child("SubImage").getValue();
+                ArrayList<String> subRooms = (ArrayList<String>) roomSnapshot.child("SubRoom").getValue();
+                String description = roomSnapshot.child("description").getValue(String.class);
+                String locationId = roomSnapshot.child("LocationId").getValue(String.class);
+                String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
+
+                return new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
+            } catch (Exception e) {
+                Log.e("RoomController", "Error parsing room data", e);
+                return null;
             }
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("RoomController", "Failed to read value.", databaseError.toException());
-            }
-        });
-    }
-
-
-    public interface OnRoomDataLoadedListener {
-        void onRoomDataLoaded(ArrayList<Room> roomList);
-    }
+        public interface OnRoomDataLoadedListener {
+            void onRoomDataLoaded(ArrayList<Room> roomList);
+        }
 }
