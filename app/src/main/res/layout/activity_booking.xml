@@ -44,48 +44,27 @@
 
                 <TextView
                     android:id="@+id/hotelName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="280dp"
+                    android:layout_height="74dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:gravity="center"
                     android:text="Cozrum Homes Premier Residences"
-                    android:textSize="18dp"
                     android:textColor="@color/GlacierBlueColor"
-                    android:fontFamily="@font/helvetica_bold" />
-
-                <ImageView
-                    android:id="@+id/likeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:src="@drawable/heart2" />
-            </LinearLayout>
-
-            <!-- Price and Room Options -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                    android:textSize="23dp" />
 
                 <TextView
                     android:id="@+id/roomPrice"
-                    android:layout_width="0dp"
+                    android:layout_width="111dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:gravity="center"
                     android:text="200.000 đ"
-                    android:textSize="16dp"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/helvetica_bold" />
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
 
-                <Spinner
-                    android:id="@+id/roomOptions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/report_bg"
-                    android:padding="10dp" />
             </LinearLayout>
+
+            <!-- Price and Room Options -->
 
             <!-- Date Picker -->
             <LinearLayout
@@ -96,6 +75,7 @@
                 android:paddingEnd="15dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,6 +89,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txtCheckin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_bg"
+                    android:textColor="#797979"
+                    android:text=""
+                    android:hint="Check-in"/>
 
                 <Button
                     android:id="@+id/checkInDate"
@@ -144,6 +134,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
+                <TextView
+                    android:id="@+id/txtCheckout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_bg"
+                    android:textColor="#797979"
+                    android:hint="Check-out"
+                    android:text="" />
+
                 <Button
                     android:id="@+id/checkOutDate"
                     android:layout_width="wrap_content"
@@ -171,22 +171,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mã giảm giá:"
+                    android:text="Mã giảm giá:  "
                     android:textSize="16dp"
                     android:textColor="#000000"
                     android:fontFamily="@font/helvetica_bold" />
 
-                <EditText
-                    android:id="@+id/voucherCode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="10dp"
-                    android:hint="Nhập mã giảm giá"
-                    android:background="@drawable/edittext_bg"
-                    android:padding="10dp"
-                    android:textColor="#000000"
-                   />
+                <Spinner
+                    android:id="@+id/spinnerVoucher"
+                    android:layout_width="108dp"
+                    android:layout_height="29dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/applyVoucherButton"
@@ -202,56 +197,104 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:background="@drawable/report_bg"
-                android:padding="20dp"
+                android:padding="5dp"
                 android:layout_margin="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="25dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Địa Chỉ"
+                    android:text="Tổng số ngày đặt:"
                     android:textColor="#000000"
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/hotelAddress"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtSoNgay"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textColor="#797979"
-                    android:text="1234 Street Name, City, Country" />
+                    android:text="0"
+                    android:gravity="center"
+                    android:layout_marginLeft="160dp"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:background="@drawable/report_bg"
-                android:padding="20dp"
+                android:padding="5dp"
                 android:layout_margin="5dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="25dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mô tả"
+                    android:text="Giảm giá: "
                     android:textColor="#000000"
                     android:textSize="15dp" />
 
+                <TextView
+                    android:id="@+id/txtGiamGia"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="215dp"
+                    android:gravity="center"
+                    android:text="-0 đ"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/report_bg"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="25dp">
 
                 <TextView
-                    android:id="@+id/hotelDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="10dp"
-                    android:textColor="#797979"
-                    android:text="A beautiful hotel located in the heart of the city..." />
+                    android:text="Tổng thanh toán: "
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtTongTien"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="155dp"
+                    android:gravity="center"
+                    android:text="0 đ"
+                    android:textColor="#F44336"
+                    android:textStyle="bold"
+                    android:textSize="16dp" />
+
             </LinearLayout>
 
             <!-- Booking Buttons -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá đã bao gồm 8% thuế và 5% phí dịch vụ."
+                android:textColor="#A6A3A3"
+                android:textSize="15dp"
+                android:padding="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chúng tôi cam đoan những gì đã cung cấp là đúng sự thật nhằm mang đến trải nhiệm tốt nhất cho khách hàng."
+                android:textColor="#A6A3A3"
+                android:textSize="15dp"
+                android:padding="5dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
