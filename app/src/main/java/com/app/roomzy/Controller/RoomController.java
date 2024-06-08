@@ -109,8 +109,8 @@ public class RoomController {
                 String description = roomSnapshot.child("description").getValue(String.class);
                 String locationId = roomSnapshot.child("LocationId").getValue(String.class);
                 String categoriesId = roomSnapshot.child("categoriesId").getValue(String.class);
-
-                return new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId);
+                String sdt = roomSnapshot.child("Phone").getValue(String.class);
+                return new Room(address, id, imageUrl, name, price, rate, type, subImages, subRooms, description, locationId, categoriesId, sdt);
             } catch (Exception e) {
                 Log.e("RoomController", "Error parsing room data", e);
                 return null;

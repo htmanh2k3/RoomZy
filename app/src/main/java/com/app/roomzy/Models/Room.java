@@ -16,6 +16,8 @@ public class Room {
     private String locationId;
     private String categoriesId;
 
+    private  String Sdt;
+
     public Room(String address, String id, String imageURL, String name, int price, int rate, String type, ArrayList<String> subImages, ArrayList<String> subRooms, String description, String locationId, String categoriesId) {
         this.address = address;
         this.id = id;
@@ -32,6 +34,30 @@ public class Room {
     }
 
     public Room() {
+    }
+
+    public Room(String address, String id, String imageURL, String name, int price, int rate, String type, ArrayList<String> subImages, ArrayList<String> subRooms, String description, String locationId, String categoriesId, String sdt) {
+        this.address = address;
+        this.id = id;
+        this.imageURL = imageURL;
+        this.name = name;
+        this.price = price;
+        this.rate = rate;
+        this.type = type;
+        this.subImages = subImages;
+        this.subRooms = subRooms;
+        this.description = description;
+        this.locationId = locationId;
+        this.categoriesId = categoriesId;
+        Sdt = sdt;
+    }
+
+    public String getSdt() {
+        return Sdt;
+    }
+
+    public void setSdt(String sdt) {
+        Sdt = sdt;
     }
 
     // Getters and Setters

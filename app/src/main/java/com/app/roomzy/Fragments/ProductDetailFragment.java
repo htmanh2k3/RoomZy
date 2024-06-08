@@ -49,7 +49,7 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
     private Room trendingProducts;
     private ArrayList<Room> savedProducts = new ArrayList<>();
     private static final int REQUEST_CALL_PERMISSION = 1;
-    ImageView imageView,imageView2, imageView3;
+    ImageView imageView,imageView2, imageView3, imageView4;
     ImageView like;
     Button buyBtn, callBtn;
 //    DatabaseHelper databaseHelper;
@@ -88,6 +88,7 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         imageView = view.findViewById(R.id.mainImage);
         imageView2 = view.findViewById(R.id.img1);
         imageView3 = view.findViewById(R.id.img2);
+        imageView4 = view.findViewById(R.id.img3);
 
         productName = (TextView) view.findViewById(R.id.pName);
         productPrice = (TextView) view.findViewById(R.id.pPrice);
@@ -175,6 +176,8 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
         Picasso.get().load(trendingProducts.getImageURL()).into(imageView);
         Picasso.get().load(trendingProducts.getSubImages().get(0)).into(imageView2);
         Picasso.get().load(trendingProducts.getSubImages().get(1)).into(imageView3);
+        Picasso.get().load(trendingProducts.getSubImages().get(2)).into(imageView4);
+
         Log.d("PhamNguyen", trendingProducts.getSubImages().get(1));
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +194,15 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ImageViewActivity.class);
                 intent.putExtra("uri",trendingProducts.getSubImages().get(0));
+                startActivity(intent);
+            }
+        });
+
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ImageViewActivity.class);
+                intent.putExtra("uri",trendingProducts.getSubImages().get(2));
                 startActivity(intent);
             }
         });
@@ -228,7 +240,7 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
 //            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
 //        }
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        String phoneNumber = "0366216586";
+        String phoneNumber = trendingProducts.getSdt();
         intent.setData(Uri.parse("tel:" + phoneNumber));
         startActivity(intent);
     }
