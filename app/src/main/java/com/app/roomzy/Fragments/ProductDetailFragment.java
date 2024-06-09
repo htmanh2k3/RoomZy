@@ -40,6 +40,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -118,8 +119,9 @@ public class ProductDetailFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), BookingActivity.class);
-//                intent.putExtra("product", trendingProducts);
+                intent.putExtra("room_key", trendingProducts);
                 startActivity(intent);
+
             }
         });
         imageView3.setOnClickListener(new View.OnClickListener() {

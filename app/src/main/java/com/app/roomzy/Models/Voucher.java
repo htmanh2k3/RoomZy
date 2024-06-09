@@ -1,13 +1,31 @@
 package com.app.roomzy.Models;
 
-        public class Voucher {
-        private String TenVC;
-        private String MoTa;
-        private String Hinh;
-        private String GiamGia;
-        private String MaVC;
-        private int ThoiHan;
-        private double GiaToiDa;
+import com.google.gson.annotations.SerializedName;
+
+public class Voucher {
+    @SerializedName("voucherId")
+    private String MaVC;
+
+    @SerializedName("name")
+    private String TenVC;
+
+    @SerializedName("description")
+    private String MoTa;
+
+    @SerializedName("discount")
+    private String GiamGia;
+
+    @SerializedName("maxDiscountAmount")
+    private double GiaToiDa;
+
+    @SerializedName("image")
+    private String Hinh;
+
+    @SerializedName("receivedDate")
+    private String receivedDate;
+
+    @SerializedName("status")
+    private String status;
 
         public Voucher(){
 
@@ -18,7 +36,19 @@ package com.app.roomzy.Models;
             this.GiamGia = giamGia;
             this.Hinh = hinh;
         }
-        public String getTenVC() {
+
+    public Voucher(String maVC, String tenVC, String moTa, String giamGia, double giaToiDa, String hinh, String receivedDate, String status) {
+        MaVC = maVC;
+        TenVC = tenVC;
+        MoTa = moTa;
+        GiamGia = giamGia;
+        GiaToiDa = giaToiDa;
+        Hinh = hinh;
+        this.receivedDate = receivedDate;
+        this.status = status;
+    }
+
+    public String getTenVC() {
             return TenVC;
         }
 
@@ -50,21 +80,18 @@ package com.app.roomzy.Models;
             GiamGia = giamGia;
         }
 
-        public String getMaVC() {
-            return MaVC;
+        public BookingRequest getMaVC() {
+            return null;
         }
 
+
+     public String getMaVCString() {
+             return  MaVC;
+        }
         public void setMaVC(String maVC) {
             MaVC = maVC;
         }
 
-        public int getThoiHan() {
-            return ThoiHan;
-        }
-
-        public void setThoiHan(int thoiHan) {
-            ThoiHan = thoiHan;
-        }
 
         public double getGiaToiDa() {
             return GiaToiDa;
@@ -74,6 +101,21 @@ package com.app.roomzy.Models;
             GiaToiDa = giaToiDa;
         }
 
+    public String getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(String receivedDate) {
+        this.receivedDate = receivedDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
 
 

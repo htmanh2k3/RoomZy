@@ -1,8 +1,13 @@
 package com.app.roomzy.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements Parcelable {
     private String address;
     private String id;
     private String imageURL;
@@ -156,4 +161,54 @@ public class Room {
     public void setCategoriesId(String categoriesId) {
         this.categoriesId = categoriesId;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(address);
+        parcel.writeString(id);
+        parcel.writeString(imageURL);
+        parcel.writeString(name);
+        parcel.writeInt(price);
+        parcel.writeInt(rate);
+        parcel.writeString(type);
+        parcel.writeStringList(subImages);
+        parcel.writeStringList(subRooms);
+        parcel.writeString(description);
+        parcel.writeString(locationId);
+        parcel.writeString(categoriesId);
+        parcel.writeString(Sdt);
+    }
+
+    protected Room(Parcel in) {
+        address = in.readString();
+        id = in.readString();
+        imageURL = in.readString();
+        name = in.readString();
+        price = in.readInt();
+        rate = in.readInt();
+        type = in.readString();
+        subImages = in.createStringArrayList();
+        subRooms = in.createStringArrayList();
+        description = in.readString();
+        locationId = in.readString();
+        categoriesId = in.readString();
+        Sdt = in.readString();
+    }
+
+    public static final Creator<Room> CREATOR = new Creator<Room>() {
+        @Override
+        public Room createFromParcel(Parcel in) {
+            return new Room(in);
+        }
+
+        @Override
+        public Room[] newArray(int size) {
+            return new Room[size];
+        }
+    };
 }

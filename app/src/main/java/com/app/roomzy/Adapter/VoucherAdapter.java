@@ -10,68 +10,62 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.roomzy.Models.Voucher;
 import com.app.roomzy.R;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class VoucherAdapter extends ArrayAdapter<Voucher> {
-    private Context context;
-    private int layoutItem;
-    private List<Voucher> voucherList;
+public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.VoucherViewHolder> {
+        private List<Voucher> voucherList;
+        private OnVoucherClickListener listener;
 
-    public VoucherAdapter(Context context, int layoutItem, List<Voucher> voucherList) {
-        super(context, layoutItem, voucherList);
-        this.context = context;
-        this.layoutItem = layoutItem;
-        this.voucherList = voucherList;
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder;
-
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(layoutItem, parent, false);
-            viewHolder = new ViewHolder();
-            viewHolder.imgVoucher = convertView.findViewById(R.id.imgVoucher);
-            viewHolder.tvGiamGia = convertView.findViewById(R.id.tvGiamGia);
-            viewHolder.tvName = convertView.findViewById(R.id.tvNameVoucher);
-            viewHolder.tvMoTa = convertView.findViewById(R.id.tvMoTa);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+        public interface OnVoucherClickListener {
+                void onVoucherClick(Voucher voucher);
         }
 
-        Voucher voucher = voucherList.get(position);
-
-        if (voucher != null) {
-            viewHolder.tvGiamGia.setText(voucher.getGiamGia());
-            viewHolder.tvName.setText(voucher.getTenVC());
-            viewHolder.tvMoTa.setText(voucher.getMoTa());
-            Glide.with(context)
-                    .load(voucher.getHinh())
-                    .into(viewHolder.imgVoucher);
+        public VoucherAdapter(List<Voucher> voucherList, OnVoucherClickListener listener) {
+                this.voucherList = voucherList;
+                this.listener = listener;
         }
 
-        return convertView;
-    }
+        @NonNull
+        @Override
+        public VoucherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_voucher, parent, false);
+                return new VoucherViewHolder(view);
+        }
 
-    @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return getView(position, convertView, parent);
-    }
+        @Override
+        public void onBindViewHolder(@NonNull VoucherViewHolder holder, int position) {
+                Voucher voucher = voucherList.get(position);
+                holder.voucherName.setText(voucher.getTenVC());
+                holder.voucherDescription.setText(voucher.getMoTa());
+                holder.voucherDiscount.setText(voucher.getGiamGia());
+                Picasso.get().load(voucher.getHinh())
+                        .into(holder.voucherImage);
+                holder.itemView.setOnClickListener(v -> listener.onVoucherClick(voucher));
 
-    static class ViewHolder {
-        ImageView imgVoucher;
-        TextView tvGiamGia;
-        TextView tvName;
-        TextView tvMoTa;
-    }
+        }
+
+        @Override
+        public int getItemCount() {
+                return voucherList.size();
+        }
+
+        public static class VoucherViewHolder extends RecyclerView.ViewHolder {
+                TextView voucherName, voucherDescription, voucherDiscount;
+                ImageView voucherImage;
+
+                public VoucherViewHolder(@NonNull View itemView) {
+                        super(itemView);
+                        voucherName = itemView.findViewById(R.id.voucherName);
+                        voucherDescription = itemView.findViewById(R.id.voucherDescription);
+                        voucherDiscount = itemView.findViewById(R.id.voucherDiscount);
+                        voucherImage = itemView.findViewById(R.id.voucherImage);
+                }
+        }
 }
-
-
-
